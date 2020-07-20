@@ -1,0 +1,30 @@
+{% extends "remindo/base.html" %}
+
+{% block title %}Create an Account{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="POST" class="form-group">
+	{% csrf_token %}
+	{{ user_form|crispy }}
+	{{ profile_form|crispy }}
+	
+	<button type="submit" class="btn btn-success" onclick="return validation()">Register</button>
+    </form>
+{% endblock %}
+
+<script>
+function validation(inputtxt)
+{
+  var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  if((inputtxt.value.match(phoneno))
+        {
+      return true;
+        }
+      else
+        {
+        alert("message");
+        return false;
+        }
+}
+</script> 

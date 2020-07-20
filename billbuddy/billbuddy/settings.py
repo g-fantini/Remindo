@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'remindo.apps.RemindoConfig'
+    'remindo.apps.RemindoConfig',
+    'register.apps.RegisterConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +116,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+#Define Default Template
+CRISPY_TEMPLATE_PACK="bootstrap4"
+
+#Override redirection after login and logout
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
