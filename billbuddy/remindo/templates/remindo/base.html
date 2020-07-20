@@ -13,8 +13,8 @@
 <body>
 	<div class="sidenav">
 		<a href="/">Home</a>
-		<a href="/my_messages">My messages</a>
 		{% if user.is_authenticated %}
+			<a href="/my_messages">My messages</a>
 			<a href="/logout">Sign Off</a>
 		{% else %}	
 			<a href="/login">Sign In</a>
