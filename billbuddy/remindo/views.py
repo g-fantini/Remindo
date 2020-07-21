@@ -36,8 +36,8 @@ def listReminder(response):
     if not response.user.is_authenticated:
         return redirect("/login") 
 
-    #get all pending reminders and sort them by date
-    reminders = Reminders.objects.filter(sent="False").order_by('-delivery_time')
+    #get all reminders and sort them by date
+    reminders = Reminders.objects.filter().order_by('-delivery_time')
 
     return render(response, "remindo/list_reminder.html", {"reminders":reminders})
 

@@ -9,9 +9,9 @@
 		    <div class="card-header" id="headingOne">
 		      <h5 class="mb-0">
 		        <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#collapse_{{reminder.id}}" aria-expanded="true" aria-controls="collapseOne">
-		          {{reminder.title}}
+		          {{reminder.title}} ({{reminder.get_sent_display}})
 		        </button>
-		        <p style="float:right">({{reminder.delivery_time}})</p>
+		       <p style="float:right">({{reminder.delivery_time}})</p>
 		      </h5>
 		    </div>
 		
