@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .forms import CreateReminderForm
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Reminders
+from bottle import request
+from remindo.tasks import send_reminder
 
 def home(response):
     return render(response,"remindo/home.html",{})
@@ -28,8 +30,6 @@ def createReminder(response):
         form = CreateReminderForm()
     
     return render(response, "remindo/create_reminder.html", {"form":form})
-    
-    
 
 def listReminder(response):
     #Check if user is authenticated otherwise redirect to login
@@ -40,3 +40,7 @@ def listReminder(response):
     reminders = Reminders.objects.filter(sent="False").order_by('-delivery_time')
 
     return render(response, "remindo/list_reminder.html", {"reminders":reminders})
+
+def celery(request):
+    send_reminder.delay()
+    return HttpResponse("")

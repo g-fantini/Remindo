@@ -12,5 +12,6 @@ urlpatterns = [
     path("remindersList/", views.listReminder, name="remindersList"),
     path("register/", v.register, name="register"),
     path('', include("django.contrib.auth.urls")),
+    path("celery/", views.celery, name="celery"),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),   
 ]
