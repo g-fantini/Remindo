@@ -1,4 +1,3 @@
-# views.py
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, ProfileRegisterForm
 from django.contrib.auth import login, authenticate
@@ -24,4 +23,4 @@ def register(request):
         'profile_form': p_reg_form
     }
     return render(request, "register/register.html", context)
-    
+      
