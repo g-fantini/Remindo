@@ -16,6 +16,7 @@ def createReminder(response):
     if response.method == "POST":
         form = CreateReminderForm(response.POST)
     
+        #if form is valid create the record
         if form.is_valid():
             title = form.cleaned_data["title"] 
             message = form.cleaned_data["message"] 
@@ -24,7 +25,11 @@ def createReminder(response):
                 
             reminder = Reminders(title=title, message=message, delivery_time=delivery_time, sender_id=current_user, receiver_id=current_user  )
             reminder.save()
-                
+            
+            #here could be possible to add the reminder in celery using
+            #send_reminder().delay
+            #temporary skipped since using cronjob logic
+            
             return HttpResponseRedirect("/remindersList")      
     else:
         form = CreateReminderForm()
@@ -35,12 +40,13 @@ def listReminder(response):
     #Check if user is authenticated otherwise redirect to login
     if not response.user.is_authenticated:
         return redirect("/login") 
-
-    #get all reminders and sort them by date
-    reminders = Reminders.objects.filter().order_by('-delivery_time')
+ 
+    if response.user.is_superuser:
+        #allow to an admin user to see all the reminders
+        #(a better way would be to use the admin panel)
+        reminders = Reminders.objects.filter().order_by('-delivery_time')
+    else:
+        #get all reminders for the logged in user and sort them by date
+        reminders = Reminders.objects.filter(receiver=response.user.id).order_by('-delivery_time')
 
     return render(response, "remindo/list_reminder.html", {"reminders":reminders})
-
-def celery(request):
-    send_reminder.delay()
-    return HttpResponse("")

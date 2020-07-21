@@ -13,13 +13,11 @@ def send_reminder():
     #since at the moment the sender and receiver are the same use the same variable
     reminders_to_send = Reminders.objects.raw('''SELECT title, phone, r.id                 
                                                 FROM remindo_reminders r, register_profile p
-                                                WHERE r.sender_id = p.user_id AND sent = "0" AND delivery_time < strftime('%Y-%m-%d %H-%M','now') 
+                                                WHERE r.sender_id = p.user_id AND sent = "SCD" AND delivery_time < strftime('%Y-%m-%d %H-%M','now') 
                                                 ORDER BY delivery_time''')
     
     for reminder in reminders_to_send:
-        #for each reminder, if the delivery is successful mark it as sent
-        if(send(reminder.phone, reminder.phone, reminder.message)):
-            reminder.sent = True
-            reminder.save(update_fields=["sent"] )
-                
+        #for each reminder, set the sent field with the relative status
+        reminder.sent = send(reminder.phone, reminder.phone, reminder.message)
+        reminder.save(update_fields=["sent"] )
     return None

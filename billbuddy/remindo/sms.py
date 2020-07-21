@@ -11,18 +11,22 @@ def send(to, sender, body):
     
     #Create random exceptions for simulation
     event = random.randint(0,2) 
+    log = ""
     try:
         if(event==0):
+            log="FID"
             raise InvalidDestinationException
-            return False; 
         elif(event==1):
+            log="FOC"
             raise OutOfCreditException
-            return False; 
         elif(event==2):
-            logging.error('Sms sent succesfully') 
-            return True;
+            log="SEN";
+            logging.info('Sms sent succesfully') 
+         
     except MessageException:
         logging.error('Sms sending failed')
+    
+    return log
 
 class MessageException(Exception):
     pass

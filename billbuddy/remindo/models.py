@@ -7,7 +7,7 @@ class Reminders(models.Model):
     message = models.TextField()
     delivery_time = models.DateTimeField()
     
-    SENT_LOG = [("SEN","Sent"),("FOC","OutOfCreditException"),("FID","InvalidDestinationException"),("SCD","Scheduled")]
+    SENT_LOG = [("SEN","Sent"),("FOC","Out Of Credit"),("FID","Invalid Destination"),("SCD","Scheduled")]
     sent = models.CharField(max_length=3, choices=SENT_LOG, default="SCD")
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reminder_receiver')
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reminder_sender')
