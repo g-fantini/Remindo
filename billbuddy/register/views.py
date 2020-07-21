@@ -10,7 +10,8 @@ def register(request):
 
         if form.is_valid() and p_reg_form.is_valid():
             user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
+            # load the profile instance created by the signal
+            user.refresh_from_db()  
             p_reg_form = ProfileRegisterForm(request.POST, instance=user.profile)
             p_reg_form.full_clean()
             p_reg_form.save()
@@ -22,5 +23,5 @@ def register(request):
         'user_form': form,
         'profile_form': p_reg_form
     }
-    return render(request, "register/register.html", context)
+    return render(request, "registration/register.html", context)
       

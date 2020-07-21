@@ -9,6 +9,10 @@ from django.utils import timezone
 
 @shared_task
 def send_reminder():
+    """
+    Once queried the database for all the reminders that need to be send,
+    try to send them and update sent field for Reminder record in the database 
+    """
     #get reminder pending in the queue and the relative phone number
     #since at the moment the sender and receiver are the same use the same variable
     reminders_to_send = Reminders.objects.raw('''SELECT title, phone, r.id                 

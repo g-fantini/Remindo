@@ -3,7 +3,7 @@ from .models import Visits, Reminders
 
 @admin.register(Visits)
 class VisitsHistoryAdmin(admin.ModelAdmin):
-        
+    #define the view in the admin panel
     list_display = ["time","ip_address"]
     list_filter = ["time"]
      
@@ -14,6 +14,7 @@ class VisitsHistoryAdmin(admin.ModelAdmin):
     
 @admin.register(Reminders)
 class RemindersHistoryAdmin(admin.ModelAdmin):
+     #define the view in the admin panel
     list_display = ["title","message","delivery_time","sent","receiver","sender"]
     list_filter = ["sent","delivery_time","receiver"]
     
