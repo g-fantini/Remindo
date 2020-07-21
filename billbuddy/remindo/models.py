@@ -5,7 +5,7 @@ class Reminders(models.Model):
     title = models.CharField(max_length=150)
     message = models.TextField()
     delivery_time = models.DateTimeField()
-
+    sent = models.BooleanField(default=False)
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reminder_receiver')
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reminder_sender')
     
