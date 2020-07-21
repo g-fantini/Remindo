@@ -1,12 +1,26 @@
 from django.shortcuts import render, redirect
 from .forms import CreateReminderForm
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Reminders
+from .models import Reminders, Visits
 from bottle import request
 from remindo.tasks import send_reminder
+from django.utils import timezone
+import datetime
+import socket   
+
 
 def home(response):
-    return render(response,"remindo/home.html",{})
+    #get current datetime
+    now=timezone.now()
+    #temporary quicker logic for live visitors
+    hostname = socket.gethostname()    
+    IPAddr = socket.gethostbyname(hostname)  
+    Visits.objects.create(time=now, ip_address=IPAddr)
+    
+    #Get visits in the last 20 minutes
+    counter = Visits.objects.filter(time__lte=datetime.datetime.now() - datetime.timedelta(seconds=60 * 20)).values('ip_address').distinct().count()
+#     return HttpResponse(counter)
+    return render(response,"remindo/home.html",{"counter":counter})
 
 def createReminder(response):     
     #Check if user is authenticated otherwise redirect to login
@@ -33,7 +47,6 @@ def createReminder(response):
             return HttpResponseRedirect("/remindersList")      
     else:
         form = CreateReminderForm()
-    
     return render(response, "remindo/create_reminder.html", {"form":form})
 
 def listReminder(response):

@@ -4,8 +4,8 @@ from .models import Visits, Reminders
 @admin.register(Visits)
 class VisitsHistoryAdmin(admin.ModelAdmin):
         
-    list_display = ["time","ip_address","visitor"]
-    list_filter = ["time","visitor"]
+    list_display = ["time","ip_address"]
+    list_filter = ["time"]
      
     def get_visit(self, obj):
         return str(obj.visit)

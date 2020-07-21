@@ -6,20 +6,16 @@ Remindo is a reminder
 
 
 {% block content %}
-Construct a reminder service, where users are able to schedule text message reminders <br><br>
+<h2> Live visitors counter: {{ counter }} </h2>
+
+Remindo is a reminder service, where users are able to schedule text message reminders <br><br>
 to be sent to them at a later date. <br>
 
-Users have to sign up for a free account, before being able to schedule text messages.<br> <br>
+Users have to  <a href="/register">sign up</a> for a free account, before being able to schedule text messages.<br> <br>
  
 The user can review the currently pending messages, arranged in a queue.<br> <br>
 
 An administrator can review all currently pending messages. Once a message<br> 
 has been sent successfully, it is marked in some way.<br> <br>
 
-There should be a live visitor counter (of people who have visited the page in
-the last 20 minutes) on the home page.<br><br>
-
-The text message library will follow this given API, but you will not be provided
-the actual implementation, and you should not implement one either. The exceptions
-can be thrown randomly, these should be reported back to the user.<br>
 {% endblock %}

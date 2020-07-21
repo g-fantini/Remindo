@@ -18,7 +18,6 @@ class Reminders(models.Model):
 class Visits(models.Model):
     time = models.DateTimeField()
     ip_address = models.CharField(max_length=32)
-    visitor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
     def __srt__(self):
         return self.visitor + " " + self.time 
