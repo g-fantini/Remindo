@@ -5,13 +5,11 @@ from .models import Reminders
 from bottle import request
 from remindo.tasks import send_reminder
 from django.utils import timezone
+from .redis_connection import *
 import datetime
 import socket   
-from .redis_connection import *
-
 
 def home(response):
-    
     #get the visitor ip address
     IPAddr = socket.gethostbyname(socket.gethostname())  
     
