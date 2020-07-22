@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'remindo.apps.RemindoConfig',
     'register.apps.RegisterConfig',
     'crispy_forms',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
