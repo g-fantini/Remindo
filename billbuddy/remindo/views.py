@@ -10,16 +10,16 @@ import socket
 
 
 def home(response):
-    #get current datetime
-    now=timezone.now()
+
     #temporary quicker logic for live visitors
     hostname = socket.gethostname()    
     IPAddr = socket.gethostbyname(hostname)  
-    Visits.objects.create(time=now, ip_address=IPAddr)
-    
+    Visits.objects.create(ip_address=IPAddr)
+     
+    time_threshold = datetime.datetime.now() - datetime.timedelta(minutes=20)
     #Get visits in the last 20 minutes
-    counter = Visits.objects.filter(time__lte=datetime.datetime.now() - datetime.timedelta(seconds=60 * 20)).values('ip_address').distinct().count()
-#     return HttpResponse(counter)
+    counter = Visits.objects.filter(time__gte=time_threshold).values('ip_address').distinct().count()
+    
     return render(response,"remindo/home.html",{"counter":counter})
 
 def createReminder(response):     
