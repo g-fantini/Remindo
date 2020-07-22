@@ -17,7 +17,7 @@ class Reminders(models.Model):
         return self.title + " " + self.delivery_time
     
 class Visits(models.Model):
-    time = models.DateTimeField()
+    time = models.DateTimeField(auto_now_add=True)
     ip_address = models.CharField(max_length=32)
     
     def __srt__(self):
